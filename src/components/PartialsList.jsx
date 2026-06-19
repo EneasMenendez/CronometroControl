@@ -1,6 +1,13 @@
+import { useState } from 'react'
 import { formatTime } from '../utils/timeUtils'
 
 export default function PartialsList({ partials, onDelete, onClearAll }) {
+  const [confirming, setConfirming] = useState(false)
+
+  const handleClearClick = () => setConfirming(true)
+  const handleConfirm = () => { setConfirming(false); onClearAll() }
+  const handleCancel = () => setConfirming(false)
+
   if (partials.length === 0) {
     return (
       <div className="mt-8 border-t border-gray-200 pt-6">
@@ -15,12 +22,31 @@ export default function PartialsList({ partials, onDelete, onClearAll }) {
         <span className="text-xs uppercase tracking-widest text-gray-400">
           Registros ({partials.length})
         </span>
-        <button
-          onClick={onClearAll}
-          className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
-        >
-          Borrar todo
-        </button>
+
+        {confirming ? (
+          <div className="flex items-center gap-3">
+            <span className="text-xs uppercase tracking-widest text-gray-500">¿Borrar todo?</span>
+            <button
+              onClick={handleConfirm}
+              className="text-xs uppercase tracking-widest text-black border-b border-black leading-none hover:text-gray-500 hover:border-gray-500 transition-colors"
+            >
+              Confirmar
+            </button>
+            <button
+              onClick={handleCancel}
+              className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleClearClick}
+            className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+          >
+            Borrar todo
+          </button>
+        )}
       </div>
 
       <table className="w-full text-sm border-collapse">

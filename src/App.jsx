@@ -144,7 +144,6 @@ export default function App() {
   }, [])
 
   const handleClearAll = useCallback(async () => {
-    if (!window.confirm('¿Borrar todos los registros?')) return
     setPartials([])
     try {
       await dbDeleteAllPartials()
