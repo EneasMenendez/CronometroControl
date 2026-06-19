@@ -1,6 +1,6 @@
 import { formatTime } from '../utils/timeUtils'
 
-const CATEGORIES = ['Telefono', 'Bano', 'Otro']
+const CATEGORIES = ['Telefono', 'Baño', 'Otro']
 
 export default function CategoryModal({ duration, employee, employeeTotal, onSave, onCancel }) {
   return (
